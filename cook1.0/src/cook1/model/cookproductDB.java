@@ -3,16 +3,19 @@ package cook1.model;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class cookproductDB {
+public final class cookproductDB {
 	
-	public ArrayList<cookproduct> cookUserDashboardTableView(String cookUserId){
+	public final ArrayList<cookproduct> cookUserDashboardTableView(String cookUserId){
 		
-		ArrayList<cookproduct> cookUserDashboardTableViewResult = new ArrayList<cookproduct>();
+		ArrayList<cookproduct> cookUserDashboardTableViewResult = null;
+		Connection conn = null;
 		
 		try{
-			Class.forName("com.mysql.jdbc.Driver");
+			/*Class.forName("com.mysql.jdbc.Driver");
 			String connURL = "jdbc:mysql://localhost/cook1?user=root&password=wiwi12345";
-			Connection conn = DriverManager.getConnection(connURL);
+			Connection conn = DriverManager.getConnection(connURL);*/
+			
+			conn = (Connection)new DBConnect().dBconnection();
 			
 			String Qstmt_cookuserDashboardTableView = "SELECT * FROM cook_product WHERE user_id=?";
 			
@@ -21,6 +24,8 @@ public class cookproductDB {
 			Pstmt_cookuserDashboardTableView.setString(1, cookUserId);
 			
 			ResultSet rs_cookuserDashboardTableView = Pstmt_cookuserDashboardTableView.executeQuery();
+			
+			cookUserDashboardTableViewResult = new ArrayList<cookproduct>();
 			
 			while(rs_cookuserDashboardTableView.next()){
 				cookproduct cookUserDashboardTableViewRecord = new cookproduct();
@@ -38,24 +43,40 @@ public class cookproductDB {
 				cookUserDashboardTableViewResult.add(cookUserDashboardTableViewRecord);
 			}
 			
-			conn.close();
-			return cookUserDashboardTableViewResult;
+			/*conn.close();
+			return cookUserDashboardTableViewResult;*/
 			
-		}catch(Exception err){
-			return null;
+		} catch(Exception err) {
+			err.printStackTrace();
+			//return null;
+		} finally {
+			try {
+				if(conn!=null) {
+					System.out.println("close connection!");
+					conn.close();
+				}
+			} catch(Exception err) {
+				err.printStackTrace();
+			}
+			
 		}
+		
+		return cookUserDashboardTableViewResult;
 		
 	}
 	
 	
-	public ArrayList<String> cookUserMenuCategory (String cookUserId){
+	public final ArrayList<String> cookUserMenuCategory (String cookUserId){
 		
-		ArrayList<String> cookUserMenuCategoryResult = new ArrayList<String>();
+		ArrayList<String> cookUserMenuCategoryResult = null;
+		Connection conn = null;
 		
 		try{
-			Class.forName("com.mysql.jdbc.Driver");
+			/*Class.forName("com.mysql.jdbc.Driver");
 			String connURL = "jdbc:mysql://localhost/cook1?user=root&password=wiwi12345";
-			Connection conn = DriverManager.getConnection(connURL);
+			Connection conn = DriverManager.getConnection(connURL);*/
+			
+			conn = (Connection)new DBConnect().dBconnection();
 			
 			String Qstmt_cookuserMenuCategory = "SELECT menu_category FROM cook_product WHERE user_id=?";
 			
@@ -64,6 +85,8 @@ public class cookproductDB {
 			Pstmt_cookuserMenuCategory.setString(1, cookUserId);
 			
 			ResultSet rs_cookuserMenuCategory = Pstmt_cookuserMenuCategory.executeQuery();
+			
+			cookUserMenuCategoryResult = new ArrayList<String>();
 			
 			while(rs_cookuserMenuCategory.next()){
 				String cookUserMenuCategoryItem = new String();
@@ -84,24 +107,38 @@ public class cookproductDB {
 								
 			}
 			
-			conn.close();
-			return cookUserMenuCategoryResult;
+			/*conn.close();
+			return cookUserMenuCategoryResult;*/
 			
-		}catch(Exception err){
-			return null;
+		} catch(Exception err) {
+			err.printStackTrace();
+			//return null;
+		} finally {
+			try {
+				if(conn!=null) {
+					System.out.println("close connection!");
+					conn.close();
+				}
+			} catch(Exception err) {
+				err.printStackTrace();
+			}
 		}
 		
+		return cookUserMenuCategoryResult;
 	}
 	
 	
-	public double cookUserMenuMaxPrice(String cookUserId){
+	public final double cookUserMenuMaxPrice(String cookUserId){
 		
 		double cookUserMenuMaxPriceResult = 0.0;
+		Connection conn = null;
 		
 		try{
-			Class.forName("com.mysql.jdbc.Driver");
+			/*Class.forName("com.mysql.jdbc.Driver");
 			String connURL = "jdbc:mysql://localhost/cook1?user=root&password=wiwi12345";
-			Connection conn = DriverManager.getConnection(connURL);
+			Connection conn = DriverManager.getConnection(connURL);*/
+			
+			conn = (Connection)new DBConnect().dBconnection();
 			
 			String Qstmt_cookUserMenuMaxPrice = "SELECT MAX(menu_price) 'max_menu_price' FROM cook_product WHERE user_id=?";
 			PreparedStatement Pstmt_cookUserMenuMaxPrice = conn.prepareStatement(Qstmt_cookUserMenuMaxPrice);
@@ -114,24 +151,39 @@ public class cookproductDB {
 				cookUserMenuMaxPriceResult = rs_cookUserMenuMaxPrice.getDouble("max_menu_price");
 			}
 			
-			conn.close();
-			return cookUserMenuMaxPriceResult;
+			/*conn.close();
+			return cookUserMenuMaxPriceResult;*/
 			
-		}catch(Exception err){
-			return 0.0;
+		} catch(Exception err) {
+			err.printStackTrace();
+			//return 0.0;
+		} finally {
+			try {
+				if(conn!=null) {
+					System.out.println("close connection!");
+					conn.close();
+				}
+			} catch(Exception err) {
+				err.printStackTrace();
+			}
 		}
+		
+		return cookUserMenuMaxPriceResult;
 	}
 
 	
-	public ArrayList<cookproduct> cookUserSearchMenu (String cookUserId, String menuDate, String menuName, String menuCategory, 
+	public final ArrayList<cookproduct> cookUserSearchMenu (String cookUserId, String menuDate, String menuName, String menuCategory, 
 			double menuPrice, String menuArea){
 		
-		ArrayList<cookproduct> cookUserSearchResult = new ArrayList<cookproduct>();
+		ArrayList<cookproduct> cookUserSearchResult = null;
+		Connection conn = null;
 		
 		try{
-			Class.forName("com.mysql.jdbc.Driver");
+			/*Class.forName("com.mysql.jdbc.Driver");
 			String connURL = "jdbc:mysql://localhost/cook1?user=root&password=wiwi12345";
-			Connection conn = DriverManager.getConnection(connURL);
+			Connection conn = DriverManager.getConnection(connURL);*/
+			
+			conn = (Connection)new DBConnect().dBconnection();
 			
 			String Qstmt_cookUserSearch;
 			PreparedStatement Pstmt_cookUserSearch;
@@ -158,6 +210,8 @@ public class cookproductDB {
 			
 			ResultSet rs_cookUserSearch = Pstmt_cookUserSearch.executeQuery();
 			
+			cookUserSearchResult = new ArrayList<cookproduct>();
+			
 			while(rs_cookUserSearch.next()){
 				cookproduct cookUserSearchRecord = new cookproduct();
 				
@@ -174,24 +228,39 @@ public class cookproductDB {
 				cookUserSearchResult.add(cookUserSearchRecord);
 			}
 			
-			conn.close();
-			return cookUserSearchResult;
+			/*conn.close();
+			return cookUserSearchResult;*/
 			
-		}catch(Exception err){
-			return null;
+		} catch(Exception err) {
+			err.printStackTrace();
+			//return null;
+		} finally {
+			try {
+				System.out.println("close connection!");
+				if(conn!=null) {
+					conn.close();
+				}
+			} catch(Exception err) {
+				err.printStackTrace();
+			}
 		}
+		
+		return cookUserSearchResult;
 	}
 	
 	
-	public int cookUserAddMenu (String cookUserId, String menuDate, String menuName, String menuCategory, String menuPic, double menuPrice, 
+	public final int cookUserAddMenu (String cookUserId, String menuDate, String menuName, String menuCategory, String menuPic, double menuPrice, 
 			String menuArea, String menuComment){
 		
 		int cookUserAddResult = 0;
+		Connection conn = null;
 		
 		try{
-			Class.forName("com.mysql.jdbc.Driver");
+			/*Class.forName("com.mysql.jdbc.Driver");
 			String connURL = "jdbc:mysql://localhost/cook1?user=root&password=wiwi12345";
-			Connection conn = DriverManager.getConnection(connURL);
+			Connection conn = DriverManager.getConnection(connURL);*/
+			
+			conn = (Connection)new DBConnect().dBconnection();
 			
 			String Qstmt_cookUserAdd = "INSERT INTO cook_product(user_id, menu_date, menu_name, menu_category, menu_pic, menu_price, "
 					+ "menu_area, menu_comment) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
@@ -208,23 +277,35 @@ public class cookproductDB {
 			
 			cookUserAddResult = Pstmt_cookUserAdd.executeUpdate();
 			
-			conn.close();			
-		}catch(Exception err){
+			//conn.close();			
+		} catch(Exception err) {
 			System.out.println(err.getMessage());
+		} finally {
+			try {
+				if(conn!=null) {
+					System.out.println("close connection!");
+					conn.close();
+				}
+			} catch(Exception err) {
+				err.printStackTrace();
+			}
 		}
 		
 		return cookUserAddResult;
 	}
 	
 	
-	public int cookUserDeleteMenu (String cookUserId, String[] menuId){
+	public final int cookUserDeleteMenu (String cookUserId, String[] menuId){
 		
 		int cookUserDeleteResult = 0;
+		Connection conn = null;
 		
 		try{
-			Class.forName("com.mysql.jdbc.Driver");
+			/*Class.forName("com.mysql.jdbc.Driver");
 			String connURL = "jdbc:mysql://localhost/cook1?user=root&password=wiwi12345";
-			Connection conn = DriverManager.getConnection(connURL);
+			Connection conn = DriverManager.getConnection(connURL);*/
+			
+			conn = (Connection)new DBConnect().dBconnection();
 			
 			String Qstmt_cookUserDelete = "DELETE FROM cook_product WHERE user_id=? AND menu_id IN(";
 			for(int i=0; i<menuId.length; i++){
@@ -243,23 +324,35 @@ public class cookproductDB {
 			
 			cookUserDeleteResult = Pstmt_cookUserDelete.executeUpdate();
 			
-			conn.close();
-		}catch(Exception err){
+			//conn.close();
+		} catch(Exception err) {
 			System.out.println(err.getMessage());
+		} finally {
+			try {
+				if(conn!=null) {
+					System.out.println("close connection!");
+					conn.close();
+				}
+			} catch(Exception err) {
+				err.printStackTrace();
+			}
 		}
 		
 		return cookUserDeleteResult;
 	}
 	
 	
-	public cookproduct cookUserEditMenuView(String cookUserId, int menuId){
+	public final cookproduct cookUserEditMenuView(String cookUserId, int menuId){
 		
-		cookproduct cookUserEditViewResult = new cookproduct();
+		cookproduct cookUserEditViewResult = null;
+		Connection conn = null;
 		
 		try{
-			Class.forName("com.mysql.jdbc.Driver");
+			/*Class.forName("com.mysql.jdbc.Driver");
 			String connURL ="jdbc:mysql://localhost/cook1?user=root&password=wiwi12345";
-			Connection conn = DriverManager.getConnection(connURL);
+			Connection conn = DriverManager.getConnection(connURL);*/
+			
+			conn = (Connection)new DBConnect().dBconnection();
 			
 			String Qstmt_cookUserEditView = "SELECT * FROM cook_product WHERE user_id=? AND menu_id=?";
 			
@@ -268,6 +361,9 @@ public class cookproductDB {
 			Pstmt_cookUserEditView.setInt(2, menuId);
 			
 			ResultSet rs_cookUserEdit = Pstmt_cookUserEditView.executeQuery();
+			
+			cookUserEditViewResult = new cookproduct();
+			
 			while(rs_cookUserEdit.next()){		
 				cookUserEditViewResult.setMenu_id(rs_cookUserEdit.getInt("menu_id"));
 				cookUserEditViewResult.setUser_id(rs_cookUserEdit.getString("user_id"));
@@ -280,26 +376,39 @@ public class cookproductDB {
 				cookUserEditViewResult.setMenu_comment(rs_cookUserEdit.getString("menu_comment"));
 			}
 			
-			conn.close();
-			return cookUserEditViewResult;
+			/*conn.close();
+			return cookUserEditViewResult;*/
 			
-		}catch(Exception err){
+		} catch(Exception err) {
 			System.out.println(err.getMessage());
-			return null;
+			//return null;
+		} finally {
+			try {
+				if(conn!=null) {
+					System.out.println("close connection!");
+					conn.close();
+				}
+			} catch(Exception err) {
+				err.printStackTrace();
+			}
 		}
 		
+		return cookUserEditViewResult;
 	}
 	
 	
-	public int cookUserEditMenu(int menuId, String cookUserId, String menuDate, String menuName, String menuCategory, String menuPic, double menuPrice, 
+	public final int cookUserEditMenu(int menuId, String cookUserId, String menuDate, String menuName, String menuCategory, String menuPic, double menuPrice, 
 			String menuArea, String menuComment){
 		
 		int cookUserEditResult = 0;
+		Connection conn = null;
 		
 		try{
-			Class.forName("com.mysql.jdbc.Driver");
+			/*Class.forName("com.mysql.jdbc.Driver");
 			String connURL = "jdbc:mysql://localhost/cook1?user=root&password=wiwi12345";
-			Connection conn = DriverManager.getConnection(connURL);
+			Connection conn = DriverManager.getConnection(connURL);*/
+			
+			conn = (Connection)new DBConnect().dBconnection();
 			
 			String Qstmt_cookUserEdit = "UPDATE cook_product "
 					+ "SET menu_date=?, menu_name=?, menu_category=?, menu_pic=?, menu_price=?, menu_area=?, menu_comment=? "
@@ -318,9 +427,18 @@ public class cookproductDB {
 			
 			cookUserEditResult = Pstmt_cookUserEdit.executeUpdate();
 			
-			conn.close();
-		}catch(Exception err){
+			//conn.close();
+		} catch(Exception err) {
 			System.out.println(err.getMessage());
+		} finally {
+			try {
+				if(conn!=null) {
+					System.out.println("close connection!");
+					conn.close();
+				}
+			} catch(Exception err) {
+				err.printStackTrace();
+			}
 		}
 		
 		return cookUserEditResult;
